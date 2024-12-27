@@ -89,28 +89,58 @@ class Pole(object):
                     d.newpos(d.dxpos, d.dypos - d.dheight)
                     d.showdisk()
 
-if __name__ == "__main__":
-    turtle.speed(5)
+class Hanoi(object):
+    def __init__(self, n= 3,start = "A",workspace = "B", destination = "C"):
+        self.startp = Pole(start,0,0)
+        self.workspacep = Pole(workspace,150,0)
+        self.destinationp = Pole(destination,300,0)
+        self.startp.showpole()
+        self.workspacep.showpole()
+        self.destinationp.showpole()
+        for i in range(n):
+            self.startp.pushdisk(Disk("d"+str(i),0,i*150,20,(n-i)*30))
 
-    disk1 = Disk(name="d1", xpos=0, ypos=0, height=20, width=60)
-    disk1.showdisk()
+    def move_disk(self,start,destination):
+        disk = start.popdisk()
+        destination.pushdisk(disk)
 
-    disk2 = Disk(name="d2", xpos=0, ypos=0, height=20, width=80)
-    disk2.showdisk()
+    def move_tower(self,n,s,d,w):
+        if n == 1:
+            self.move_disk(s,d)
+        else:
+            self.move_tower(n-1,s,w,d)
+            self.move_disk(s,d)
+            self.move_tower(n-1,w,d,s)
 
-    pole1 = Pole(name="Pole 1", xpos=-50, ypos=-100, thick=10, length=200)
-    pole1.showpole()
+    def solve(self):
+        self.move_tower(3,self.startp,self.destinationp,self.workspacep)
 
-    pole2 = Pole(name="Pole 2", xpos=150, ypos=-100, thick=10, length=200)
-    pole2.showpole()
-
-    pole3 = Pole(name="Pole 3", xpos=250, ypos=-100, thick=10, length=200)
-    pole3.showpole()
+h = Hanoi()
+h.solve()
 
 
-    pole1.pushdisk(disk1)
-    pole1.pushdisk(disk2)
+# if __name__ == "__main__":
+#     turtle.speed(5)
 
-    pole1.popdisk()
+#     disk1 = Disk(name="d1", xpos=0, ypos=0, height=20, width=60)
+#     disk1.showdisk()
 
-    turtle.done()
+#     disk2 = Disk(name="d2", xpos=0, ypos=0, height=20, width=80)
+#     disk2.showdisk()
+
+#     pole1 = Pole(name="Pole 1", xpos=-50, ypos=-100, thick=10, length=200)
+#     pole1.showpole()
+
+#     pole2 = Pole(name="Pole 2", xpos=150, ypos=-100, thick=10, length=200)
+#     pole2.showpole()
+
+#     pole3 = Pole(name="Pole 3", xpos=250, ypos=-100, thick=10, length=200)
+#     pole3.showpole()
+
+
+#     pole1.pushdisk(disk1)
+#     pole1.pushdisk(disk2)
+
+#     pole1.popdisk()
+
+#     turtle.done()
