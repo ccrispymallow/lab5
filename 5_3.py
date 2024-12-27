@@ -10,19 +10,18 @@ class Disk(object):
 
     def showdisk(self):
         turtle.penup()
-        turtle.goto(self.dxpos/2, self.dypos)
-        turtle.setheading(0) 
+        turtle.goto(self.dxpos, self.dypos)
+        turtle.setheading(0)
         turtle.pendown()
 
-        turtle.begin_fill()
+        # Remove filling; just draw the outline
         for _ in range(2):
             turtle.forward(self.dwidth)
             turtle.left(90)
             turtle.forward(self.dheight)
             turtle.left(90)
-        turtle.end_fill()
         turtle.penup()
-
+        
     def newpos(self, xpos, ypos):
         self.dxpos = xpos
         self.dypos = ypos
@@ -33,15 +32,14 @@ class Disk(object):
         turtle.setheading(0)
         turtle.pendown()
 
-        turtle.fillcolor("white")
-        turtle.begin_fill()
+        turtle.pencolor("white")
         for _ in range(2):
             turtle.forward(self.dwidth)
             turtle.left(90)
             turtle.forward(self.dheight)
             turtle.left(90)
-        turtle.end_fill()
         turtle.penup()
+        turtle.pencolor("black")
 
 class Pole(object):
     def __init__(self, name="", xpos=0, ypos=0, thick=10, length=100):
@@ -80,67 +78,39 @@ class Pole(object):
     def popdisk(self):
         if self.stack:
             disk = self.stack.pop()
-            disk.cleardisk()
-
-            if self.stack:
-                top_disk = self.stack[-1]
-                # Move remaining disks down
-                for d in self.stack:
-                    d.newpos(d.dxpos, d.dypos - d.dheight)
-                    d.showdisk()
+            disk.cleardisk()  # Remove the disk visually
+            return disk  # Return the disk so it can be moved to another pole
 
 class Hanoi(object):
-    def __init__(self, n= 3,start = "A",workspace = "B", destination = "C"):
-        self.startp = Pole(start,0,0)
-        self.workspacep = Pole(workspace,150,0)
-        self.destinationp = Pole(destination,300,0)
+    def __init__(self, n=3, start="A", workspace="B", destination="C"):
+        self.startp = Pole(start, 0, 0)
+        self.workspacep = Pole(workspace, 150, 0)
+        self.destinationp = Pole(destination, 300, 0)
         self.startp.showpole()
         self.workspacep.showpole()
         self.destinationp.showpole()
         for i in range(n):
-            self.startp.pushdisk(Disk("d"+str(i),0,i*150,20,(n-i)*30))
+            self.startp.pushdisk(Disk("d" + str(i), 0, i * 150, 20, (n - i) * 30))
 
-    def move_disk(self,start,destination):
+    def move_disk(self, start, destination):
         disk = start.popdisk()
         destination.pushdisk(disk)
 
-    def move_tower(self,n,s,d,w):
+    def move_tower(self, n, s, d, w):
         if n == 1:
-            self.move_disk(s,d)
+            self.move_disk(s, d)
         else:
-            self.move_tower(n-1,s,w,d)
-            self.move_disk(s,d)
-            self.move_tower(n-1,w,d,s)
+            self.move_tower(n - 1, s, w, d)
+            self.move_disk(s, d)
+            self.move_tower(n - 1, w, d, s)
 
     def solve(self):
-        self.move_tower(3,self.startp,self.destinationp,self.workspacep)
+        self.move_tower(3, self.startp, self.destinationp, self.workspacep)
 
-h = Hanoi()
-h.solve()
+if __name__ == "__main__":
+    turtle.speed(0)
 
+    h = Hanoi(n=3)
+    h.solve()
 
-# if __name__ == "__main__":
-#     turtle.speed(5)
-
-#     disk1 = Disk(name="d1", xpos=0, ypos=0, height=20, width=60)
-#     disk1.showdisk()
-
-#     disk2 = Disk(name="d2", xpos=0, ypos=0, height=20, width=80)
-#     disk2.showdisk()
-
-#     pole1 = Pole(name="Pole 1", xpos=-50, ypos=-100, thick=10, length=200)
-#     pole1.showpole()
-
-#     pole2 = Pole(name="Pole 2", xpos=150, ypos=-100, thick=10, length=200)
-#     pole2.showpole()
-
-#     pole3 = Pole(name="Pole 3", xpos=250, ypos=-100, thick=10, length=200)
-#     pole3.showpole()
-
-
-#     pole1.pushdisk(disk1)
-#     pole1.pushdisk(disk2)
-
-#     pole1.popdisk()
-
-#     turtle.done()
+    turtle.done()
