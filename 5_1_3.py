@@ -7,25 +7,12 @@ class Simple_drawing_window(QWidget):
     def __init__(self):
         QWidget.__init__(self, None)
         self.setWindowTitle("Simple GitHub Drawing")
-        self.rabbit = QPixmap("images/rabbit.png")
+        self.cat = QPixmap("images/catAI.jpg")
 
     def paintEvent(self, e):
         p = QPainter()
         p.begin(self)
-
-        p.setPen(QColor(0,0,0))
-        p.setBrush(QColor(0,127,0))
-        p.drawPolygon([
-            QPoint(70,100), QPoint(100,110),
-            QPoint(130,100), QPoint(100,150)
-        ])
-
-        p.setPen(QColor(255,127,0))
-        p.setBrush(QColor(255,127,0))
-        p.drawPie(50,150,100,100,0,180*16)
-
-        p.drawPolygon([QPoint(50,200),QPoint(150,200),QPoint(100,400),])
-        p.drawPixmap(QRect(200,100,320,320), self.rabbit)
+        p.drawPixmap(QRect(200,100,320,320), self.cat)
         p.end()
 
 class Simple_drawing_window3(Simple_drawing_window):
@@ -36,9 +23,9 @@ class Simple_drawing_window3(Simple_drawing_window):
         p.setPen(QColor(0,255,0))
         p.setBrush(QColor(0,255,0))
 
-        p.drawPolygon([QPoint(300,300),QPoint(400,400),QPoint(200,400),])
+        p.drawPolygon([QPoint(300,20),QPoint(400,90),QPoint(200,90),])
         p.end()
-        
+
 def main():
     app = QApplication(sys.argv)
     w3 = Simple_drawing_window3()
