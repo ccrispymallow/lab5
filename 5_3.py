@@ -10,7 +10,7 @@ class Disk(object):
 
     def showdisk(self):
         turtle.penup()
-        turtle.goto(self.dxpos, self.dypos)
+        turtle.goto(self.dxpos/2, self.dypos)
         turtle.setheading(0) 
         turtle.pendown()
 
@@ -24,8 +24,6 @@ class Disk(object):
         turtle.forward(self.dwidth/2)
 
         turtle.penup()
-        turtle.goto(self.dxpos, self.dypos) 
-        turtle.setheading(0)  
 
     def newpos(self, xpos, ypos):
         self.dxpos = xpos
@@ -48,11 +46,9 @@ class Disk(object):
         turtle.forward(self.dwidth/2)
 
         turtle.penup()
-        turtle.goto(self.dxpos, self.dypos) 
-        turtle.setheading(0)  
 
 if __name__ == "__main__":
-    turtle.speed(5) 
+    turtle.speed(1) 
 
     disk1 = Disk(name="d1", xpos=0, ypos=0, height=20, width=60)
     disk1.showdisk()
