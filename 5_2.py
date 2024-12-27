@@ -17,6 +17,13 @@ class Walk(Transportation):
     def calculate_cost(self):
         return 0
 
+class Taxi(Transportation):
+    def __init__(self, start_place, end_place, distance):
+        super().__init__(start_place, end_place, distance)
+
+    def calculate_cost(self):
+        return 40*self.distance
+    
 def main():
     walk = Walk("Home", "Park", 2)
 
