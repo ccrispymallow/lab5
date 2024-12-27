@@ -12,14 +12,11 @@ class Simple_drawing_window1(QWidget):
     def paintEvent(self, e):
         p = QPainter()
         p.begin(self)
-
-        p.setPen(QColor(0, 0, 0))
-        p.setBrush(QColor(0, 127, 0))
-        
-        p.drawPolygon([QPoint(50, 200), QPoint(150, 200), QPoint(100, 400)])
-
+    
         p.drawPixmap(QRect(200, 100, 320, 320), self.snoopy)
-
+        p.setPen(QColor(0, 0, 255))
+        p.setBrush(QColor(0, 0, 255))
+        p.drawEllipse(500, 300, 100, 100)
         p.end()
 
 def main():
