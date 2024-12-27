@@ -10,8 +10,8 @@ class Disk(object):
 
     def showdisk(self):
         turtle.penup()
-        turtle.goto(self.dxpos, self.dypos)
-        turtle.setheading(0)
+        turtle.goto(self.dxpos/2, self.dypos)
+        turtle.setheading(0) 
         turtle.pendown()
 
         turtle.begin_fill()
