@@ -17,7 +17,7 @@ class Simple_drawing_window2(QWidget):
 
         p.setPen(QColor(128, 128, 128))  
         p.setBrush(QColor(128, 128, 128))  
-        p.drawRect(50, 50, 100, 100)  
+        p.drawRect(50, 100, 100, 100)  
 
         p.end()
 
